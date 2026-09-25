@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Prime Bilingual School</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="ICONE_TOP.png" type="image/png">
+</head>
+
+<body>
+
+    <video id="video" autoplay muted loop>
+        <source src="totem.mp4" type="video/mp4">
+    </video>
+
+    
+
+    <img src="WhatsApp_Image_2026-03-02_at_11.15.24-removebg-preview.png" class="ccf">
+
+    <div class="nav-grid">
+
+        <a href="6ano.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>Year 6</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+        <a href="7ano.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>Year 7</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+        <a href="8ano.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>Year 8</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+        <a href="9ano.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>Year 9</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+        <a href="1em.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>FRESHMAN A</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+        <a href="2em.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>FRESHMAN B</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+        <a href="junior.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>JUNIOR</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+        <a href="AFTERMOON.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>CCF ELECTIVE PROGRAM &amp; SPORTS</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+        <a href="jornal.html">
+            <div class="contasiner">
+                <header class="header">
+                    <div class="logo">
+                        <h1>Jornal</h1>
+                    </div>
+                </header>
+            </div>
+        </a>
+
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 Prime Bilingual School - Cronograma Escolar</p>
+        <p style="margin-top: 5px;">Atualizado: 09/04/2026</p>
+    </footer>
+
+    <script>
+
+        let tempo;
+        const limite = 30000;
+
+        function esconderVideo() {
+
+            const v    = document.getElementById("video");
+            const hint = document.getElementById("video-hint");
+
+            v.style.opacity       = "0";
+            v.style.pointerEvents = "none";
+            hint.style.opacity    = "0";
+
+            sessionStorage.setItem("videoEscondido", "true");
+            sessionStorage.setItem("ultimaInteracao", Date.now());
+
+            resetarTempo();
+        }
+
+        function mostrarVideo() {
+
+            const v    = document.getElementById("video");
+            const hint = document.getElementById("video-hint");
+
+            v.style.opacity       = "1";
+            v.style.pointerEvents = "auto";
+            hint.style.opacity    = "1";
+
+            sessionStorage.setItem("videoEscondido", "false");
+        }
+
+        function resetarTempo() {
+
+            clearTimeout(tempo);
+
+            sessionStorage.setItem("ultimaInteracao", Date.now());
+
+            tempo = setTimeout(mostrarVideo, limite);
+        }
+
+
+        document.addEventListener("click",      esconderVideo);
+        document.addEventListener("touchstart", esconderVideo);
+        document.addEventListener("mousemove",  resetarTempo);
+
+
+        window.onload = function () {
+
+            let escondido = sessionStorage.getItem("videoEscondido");
+            let ultima    = sessionStorage.getItem("ultimaInteracao");
+
+            if (escondido === "true") {
+
+                let agora       = Date.now();
+                let tempoPassado = agora - ultima;
+
+                if (tempoPassado < limite) {
+
+                    const v    = document.getElementById("video");
+                    const hint = document.getElementById("video-hint");
+
+                    v.style.opacity       = "0";
+                    v.style.pointerEvents = "none";
+                    hint.style.opacity    = "0";
+
+                    tempo = setTimeout(mostrarVideo, limite - tempoPassado);
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

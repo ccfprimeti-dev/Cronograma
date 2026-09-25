@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Carrossel Fullscreen</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    font-family:'Inter', Arial, sans-serif;
+    background:#0a0a0a;
+}
+
+.carousel{
+    width:100vw;
+    height:100vh;
+    position:relative;
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 0.5s ease-in-out;
+}
+
+.slide.active{
+    opacity:1;
+}
+
+/* BOTÕES CARROSSEL */
+.btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:60px;
+    height:60px;
+    border:none;
+    border-radius:50%;
+    background:rgba(0,0,0,0.45);
+    backdrop-filter:blur(8px);
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+    z-index:10;
+    transition:background 0.3s, transform 0.2s;
+    border:1px solid rgba(255,255,255,0.15);
+}
+
+.btn:hover{
+    background:rgba(0,0,0,0.72);
+    transform:translateY(-50%) scale(1.08);
+}
+
+.prev{ left:20px; }
+.next{ right:20px; }
+
+/* BOTÃO VOLTAR */
+#btn-voltar {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 100;
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #f6d500, #c4aa00);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(246,213,0,0.4), 0 2px 8px rgba(0,0,0,0.35);
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+    position: fixed;
+}
+
+#btn-voltar:hover {
+    transform: scale(1.12) rotate(-5deg);
+    box-shadow: 0 8px 30px rgba(246,213,0,0.6);
+}
+
+#btn-voltar:active { transform: scale(0.94); }
+
+#btn-voltar img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+</style>
+</head>
+
+<body>
+
+<a href="index.html" id="btn-voltar">
+    <img src="home1.png" alt="Voltar">
+</a>
+
+<div class="carousel">
+
+    <!-- IMAGENS -->
+    <img src="1.png" class="slide active">
+    <img src="2.png" class="slide">
+    <img src="3.png" class="slide">
+    <img src="4.png" class="slide">
+    <img src="5.png" class="slide">
+    <img src="6.png" class="slide">
+    <img src="7.png" class="slide">
+
+    
+
+    <!-- BOTÕES -->
+    <button class="btn prev">&#10094;</button>
+    <button class="btn next">&#10095;</button>
+
+</div>
+
+<script>
+
+const slides = document.querySelectorAll('.slide');
+const nextBtn = document.querySelector('.next');
+const prevBtn = document.querySelector('.prev');
+
+let current = 0;
+
+function showSlide(index){
+
+    slides.forEach(slide => {
+        slide.classList.remove('active');
+    });
+
+    slides[index].classList.add('active');
+}
+
+nextBtn.addEventListener('click', () => {
+
+    current++;
+
+    if(current >= slides.length){
+        current = 0;
+    }
+
+    showSlide(current);
+});
+
+prevBtn.addEventListener('click', () => {
+
+    current--;
+
+    if(current < 0){
+        current = slides.length - 1;
+    }
+
+    showSlide(current);
+});
+
+</script>
+
+<script src="js.js"></script>
+
+</body>
+</html>
